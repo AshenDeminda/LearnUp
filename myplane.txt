@@ -1,0 +1,27 @@
+interactive-learning-platform/
+│
+├── client/                     # React Frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/             # Images, icons
+│   │   ├── components/         # Reusable components (Navbar, Footer, etc.)
+│   │   ├── pages/              # Pages like Home, Notes, Quizzes, Chat
+│   │   ├── services/           # Axios calls to backend
+│   │   ├── contexts/           # Auth or Global state (optional)
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── .env
+│   └── vite.config.js          # Assuming you're using Vite
+│
+├── server/                     # Express Backend
+│   ├── config/                 # DB connection, Gemini API setup
+│   ├── controllers/            # Request logic
+│   ├── models/                 # Mongoose schemas (User, Note, Quiz, Score)
+│   ├── routes/                 # Routes (auth, notes, quizzes, chat)
+│   ├── middleware/             # Auth middleware
+│   ├── server.js               # Entry point
+│   └── .env
+│
+├── package.json
+├── README.md
+└── .gitignore
