@@ -1,0 +1,126 @@
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.auth-body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/AuthBG.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+.auth-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('../assets/AuthBG.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+body.auth-body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.form-container {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: rgba(45, 45, 45, 0.92);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1;
+}
+
+.form-title {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-input {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background: #222;
+  color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #646cff;
+  outline: none;
+}
+
+.form-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #646cff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #535bf2;
+}
+
+.form-footer {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+.form-footer a {
+  color: #646cff;
+  text-decoration: none;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo span {
+  color: #646cff;
+} 
