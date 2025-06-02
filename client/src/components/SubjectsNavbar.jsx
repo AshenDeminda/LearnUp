@@ -1,25 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
 import "../styles/SubjectsNavbar.css";
 
 const subjects = [
-  "HTML",
+  "C",
+  "C#",
+  "C++",
   "CSS",
+  "Go",
+  "HTML",
+  "Java",
   "JavaScript",
-  "React",
+  "Kotlin",
+  "Matlab",
+  "PHP",
   "Python",
-  "SQL"
+  "React",
+  "Ruby",
+  "SQL",
+  "Swift",
+  "TypeScript",
+  "Scala"
 ];
 
-const SubjectsNavbar = () => (
-  <nav className="subjects-navbar">
-    <ul className="subjects-list">
-      {subjects.map((subject) => (
-        <li key={subject}>
-          <button className="subject-link">{subject}</button>
-        </li>
-      ))}
-    </ul>
-  </nav>
-);
+const SubjectsNavbar = () => {
+  return (
+    <nav className="subjects-navbar">
+      <ul className="subjects-list">
+        {subjects.map((subject) => (
+          <li key={subject}>
+            <button className="subject-link">{subject}</button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
 
 export default SubjectsNavbar; 
