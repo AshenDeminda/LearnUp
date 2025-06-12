@@ -5,19 +5,21 @@ import Navbar from "./components/Navbar";
 import Tutorials from "./pages/Tutorials";
 import Quizzes from "./pages/Quizzes";
 import Chat from "./pages/Chat";
+import Home from "./pages/Home";
 import './App.css';
 import React from "react";
 
 function AppContent() {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/" || location.pathname === "/signup";
+  const hideNavbar = location.pathname === "/signin" || location.pathname === "/signup";
   return (
     <>
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<h1 style={{ color: 'red', marginTop: '80px' }}>Welcome to LEARNUP Dashboard (Dummy)</h1>} />
+        <Route path="/dashboard" element={<Home />} />
         <Route path="/tutorials" element={<Tutorials />} />
         <Route path="/quizzes" element={<Quizzes />} />
         <Route path="/chat" element={<Chat />} />
