@@ -16,7 +16,7 @@ function SignIn() {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
-    navigate("/dashboard"); // Just a placeholder route
+    navigate("/dashboard"); // Redirect to dashboard after successful signin
   };
 
   return (

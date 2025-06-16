@@ -25,7 +25,7 @@ function SignUp() {
     console.log("Full Name:", fullName);
     console.log("Email:", email);
     console.log("Password:", password);
-    navigate("/"); // Go back to sign in after "signup"
+    navigate("/signin"); // Redirect to sign in after successful signup
   };
 
   return (
@@ -70,7 +70,7 @@ function SignUp() {
           <button type="submit" className="form-button">Sign Up</button>
         </form>
         <p className="form-footer">
-          Already have an account? <Link to="/">Sign In</Link>
+          Already have an account? <Link to="/signin">Sign In</Link>
         </p>
       </div>
     </div>
