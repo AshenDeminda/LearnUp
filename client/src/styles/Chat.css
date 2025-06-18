@@ -1,6 +1,6 @@
 .chatgpt-container {
     width: 100vw;
-    height: calc(100vh - 56px); /* 56px = navbar height */
+    height: calc(100vh - 44px); /* 56px = navbar height */
     background: #23272f;
     color: #fff;
     display: flex;
@@ -12,7 +12,7 @@
     border-radius: 0;
     box-shadow: none;
     position: relative;
-    top: 56px; /* push below navbar */
+    top: 44px; /* push below navbar */
   }
   
   .chatgpt-fullscreen {

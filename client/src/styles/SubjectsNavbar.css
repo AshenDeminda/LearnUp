@@ -7,7 +7,7 @@
   padding: 0.2rem 0.5rem; /* thinner bar */
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   position: sticky;
-  top: 56px; /* below main navbar */
+  top: 44px; /* below main navbar */
   z-index: 9;
 }
 

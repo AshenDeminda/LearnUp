@@ -6,6 +6,7 @@ import Tutorials from "./pages/Tutorials";
 import Quizzes from "./pages/Quizzes";
 import Chat from "./pages/Chat";
 import Home from "./pages/Home";
+import UserSettings from "./pages/UserSettings";
 import './App.css';
 import React from "react";
 
@@ -23,6 +24,7 @@ function AppContent() {
         <Route path="/tutorials" element={<Tutorials />} />
         <Route path="/quizzes" element={<Quizzes />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/settings" element={<UserSettings />} />
       </Routes>
     </>
   );
