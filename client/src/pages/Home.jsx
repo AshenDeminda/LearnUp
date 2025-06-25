@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/Home.css';
+import ArticleCard from '../components/ArticleCard';
 
 const Home = () => {
   // Dummy data for articles
@@ -21,13 +22,31 @@ const Home = () => {
       title: "Data Structures and Algorithms",
       description: "Understanding core computer science concepts",
       readTime: "10 min read"
+    },
+    {
+      id: 4,
+      title: "Introduction to Databases",
+      description: "Explore the basics of databases and SQL",
+      readTime: "7 min read"
+    },
+    {
+      id: 5,
+      title: "Version Control with Git",
+      description: "Learn how to manage code with Git and GitHub",
+      readTime: "6 min read"
+    },
+    {
+      id: 6,
+      title: "Frontend vs Backend Development",
+      description: "Understand the difference between frontend and backend",
+      readTime: "5 min read"
     }
   ];
 
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <section className="hero-section">
+      <section className="hero-section" style={{ minHeight: '100vh' }}>
         <div className="hero-content">
           <h1 className="hero-title">Welcome to LearnUp</h1>
           <p className="hero-subtitle">Your journey to knowledge starts here</p>
@@ -40,11 +59,13 @@ const Home = () => {
         <h2 className="section-title">Featured Articles</h2>
         <div className="articles-grid">
           {articles.map((article) => (
-            <div key={article.id} className="article-card">
-              <h3 className="article-title">{article.title}</h3>
-              <p className="article-description">{article.description}</p>
-              <span className="read-time">{article.readTime}</span>
-            </div>
+            <ArticleCard
+              key={article.id}
+              title={article.title}
+              description={article.description}
+              readTime={article.readTime}
+              image={article.image}
+            />
           ))}
         </div>
       </section>
@@ -74,7 +95,7 @@ const Home = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2024 LearnUp. All rights reserved.</p>
+          <p>&copy; 2025 LearnUp. All rights reserved.</p>
         </div>
       </footer>
     </div>
