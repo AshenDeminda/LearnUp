@@ -82,7 +82,7 @@
   }
   
   .chatgpt-msg.ai .chatgpt-bubble {
-    background: #18181b;
+    background: #18181b00;
     color: #f4f4f5;
     border-bottom-left-radius: 0.3em;
     border-bottom-right-radius: 1.2em;

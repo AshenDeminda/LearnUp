@@ -1,173 +1,212 @@
+/* Remove legacy boxed-in styles */
 .settings-container {
-  max-width: 1200px;
+  /* Old styles removed or commented out */
+  /* max-width: 1200px;
   margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.settings-header {
-  margin-bottom: 2rem;
-}
-
-.settings-header h1 {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 0.5rem;
-}
-
-.settings-header p {
-  color: #666;
-}
-
-.settings-content {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 2rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.settings-sidebar {
-  border-right: 1px solid #eee;
-  padding-right: 2rem;
-}
-
-.user-profile {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.profile-image-container {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 1rem;
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #646cff;
-}
-
-.change-photo-btn {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #646cff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.profile-image-container:hover .change-photo-btn {
-  opacity: 1;
-}
-
-.settings-nav {
+  padding: 0 1rem; */
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: #181a20; /* dark background */
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Only keep and strengthen the dark theme styles */
+.settings-container.dark-theme,
+body .settings-container.dark-theme {
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: #181a20;
+  color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-shadow: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #181a20;
+  color: #f3f4f6;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+.settings-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 2.5rem 0 2rem 0;
+  color: #646cff;
+  text-align: center;
+}
+
+.settings-form {
+  width: 100%;
+  max-width: 1000px;
+  background: #23263a;
+  border-radius: 16px;
+  padding: 2.5rem 2.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.profile-pic-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 
-.nav-item {
-  padding: 0.8rem 1rem;
-  border: none;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-  border-radius: 8px;
-  color: #666;
-  transition: all 0.3s;
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #646cff;
+  background: #23263a;
 }
 
-.nav-item:hover {
-  background: #f5f5f5;
+.upload-btn {
+  margin-top: 0.5rem;
+  background: #23263a;
   color: #646cff;
+  border: 1px solid #646cff;
+  border-radius: 20px;
+  padding: 0.3rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-align: center;
 }
-
-.nav-item.active {
+.upload-btn:hover {
   background: #646cff;
-  color: white;
+  color: #fff;
 }
 
-.settings-main {
-  padding-left: 1rem;
-}
-
-.form-section {
-  margin-bottom: 2rem;
-}
-
-.form-section h3 {
-  color: #333;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
+.profile-fields {
+  flex: 1;
+  min-width: 220px;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .form-group label {
   display: block;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #666;
+  color: #b3b8d0;
 }
 
-.form-input {
+.form-group input {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid #23263a;
   border-radius: 8px;
+  background: #181a20;
+  color: #f3f4f6;
   font-size: 1rem;
-  transition: border-color 0.3s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-
-.form-input:focus {
+.form-group input:focus {
   border-color: #646cff;
+  box-shadow: 0 0 0 2px #646cff44;
   outline: none;
 }
 
-.form-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.save-button, .cancel-button {
-  padding: 0.8rem 2rem;
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  background: #646cff;
+  color: #fff;
+  border: none;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  margin-top: 0.5rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: none;
 }
-
-.save-button {
-  background: #646cff;
-  color: white;
-  border: none;
-}
-
-.save-button:hover {
+.btn:hover {
   background: #535bf2;
 }
 
-.cancel-button {
-  background: none;
-  border: 1px solid #ddd;
-  color: #666;
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #dc2626;
 }
 
-.cancel-button:hover {
-  background: #f5f5f5;
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #646cff;
+  margin-bottom: 1.2rem;
+}
+
+/* Delete confirmation modal */
+.delete-confirm-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(24,26,32,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #23263a;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px #646cff22;
+  text-align: center;
+}
+.modal-content h3 {
+  color: #ef4444;
+  margin-bottom: 0.7rem;
+}
+.modal-actions {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .settings-form {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+  .profile-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
 } 
