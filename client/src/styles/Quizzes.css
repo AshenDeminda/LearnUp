@@ -1,0 +1,146 @@
+.quiz-page-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: #181a20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #181a20;
+  color: #f3f4f6;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+.quiz-card {
+  width: 100%;
+  max-width: 1000px;
+  background: #23263a;
+  border-radius: 18px;
+  margin: 2.5rem 0 2.5rem 0;
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.quiz-title {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #646cff;
+  text-align: center;
+  margin-bottom: 2.2rem;
+}
+
+.quiz-question-card {
+  background: #23263a;
+  border-radius: 12px;
+  margin-bottom: 2.2rem;
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  box-shadow: 0 2px 12px rgba(100,108,255,0.07);
+}
+
+.quiz-question {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #a5b4fc;
+  margin-bottom: 1rem;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.quiz-option-label {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  color: #f3f4f6;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  border-radius: 8px;
+  transition: background 0.18s, color 0.18s;
+  position: relative;
+  user-select: none;
+}
+.quiz-option-label.selected,
+.quiz-option-label:hover {
+  background: #232c4b;
+  color: #a5b4fc;
+}
+.quiz-option-label input[type="radio"] {
+  display: none;
+}
+.quiz-custom-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #646cff;
+  border-radius: 50%;
+  margin-right: 12px;
+  background: #181a20;
+  display: inline-block;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.quiz-option-label.selected .quiz-custom-radio {
+  border-color: #a5b4fc;
+  box-shadow: 0 0 0 2px #646cff44;
+}
+.quiz-option-label input[type="radio"]:checked + .quiz-custom-radio::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background: #646cff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+
+.quiz-submit-btn {
+  display: block;
+  width: 200px;
+  margin: 2rem auto 0 auto;
+  padding: 0.9rem 0;
+  background: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #646cff22;
+}
+.quiz-submit-btn:hover {
+  background: #535bf2;
+}
+
+.quiz-score {
+  text-align: center;
+  color: #a5b4fc;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 1100px) {
+  .quiz-card {
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+} 
