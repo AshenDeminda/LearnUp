@@ -209,4 +209,30 @@ html, body {
     flex-direction: column;
     gap: 1rem;
   }
+}
+
+/* Custom scrollbar for webkit browsers - matching Tutorials page */
+.settings-container::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.settings-container::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #1D1D28;
+}
+
+.settings-container::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: #5D64E4;
+  border-radius: 4px;
+}
+
+.settings-container::-webkit-scrollbar-thumb:hover,
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: #646CFF;
 } 
