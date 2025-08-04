@@ -8,6 +8,7 @@ import Chat from "./pages/Chat";
 import Home from "./pages/Home";
 import UserSettings from "./pages/UserSettings";
 import ArticleDetail from "./components/ArticleDetail";
+import QuizDetail from "./components/QuizDetail";
 import './App.css';
 import React from "react";
 
@@ -27,6 +28,7 @@ function AppContent() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/settings" element={<UserSettings />} />
         <Route path="/article/:id" element={<ArticleDetail />} />
+        <Route path="/quiz/:id" element={<QuizDetail />} />
       </Routes>
     </>
   );

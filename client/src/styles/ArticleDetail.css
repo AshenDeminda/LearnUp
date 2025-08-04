@@ -161,6 +161,13 @@
   text-align: center;
 }
 
+.article-actions-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 .back-button {
   background: linear-gradient(135deg, #a5b4fc, #818cf8);
   color: #1e1e2e;
@@ -177,6 +184,24 @@
 .back-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(165, 180, 252, 0.4);
+}
+
+.take-quiz-button {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.take-quiz-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
 }
 
 /* Article Not Found */
@@ -219,6 +244,16 @@
   
   .section-content {
     font-size: 1rem;
+  }
+  
+  .article-actions-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .back-button, .take-quiz-button {
+    width: 100%;
+    max-width: 300px;
   }
 }
 

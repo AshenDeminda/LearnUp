@@ -163,6 +163,26 @@ const ArticleDetail = () => {
 
   const article = articles.find(a => a.id === parseInt(id));
 
+  // Mapping between articles and their corresponding quizzes
+  const articleToQuizMapping = {
+    1: 1, // HTML Basics Tutorial -> HTML Basics Quiz
+    2: 2, // CSS Styling Fundamentals -> CSS Fundamentals Quiz
+    3: 3, // JavaScript ES6+ Features -> JavaScript Basics Quiz
+    4: 4, // React Hooks Deep Dive -> React Components Quiz (if exists)
+    5: 5, // Python Data Analysis -> Python Data Types Quiz (if exists)
+    6: 6  // Docker Container Basics -> Docker Basics Quiz (if exists)
+  };
+
+  const handleTakeQuiz = () => {
+    const quizId = articleToQuizMapping[article.id];
+    if (quizId) {
+      navigate(`/quiz/${quizId}`);
+    } else {
+      // If no specific quiz exists, navigate to quizzes page
+      navigate('/quizzes');
+    }
+  };
+
   if (!article) {
     return (
       <div className="article-detail-page">
@@ -214,11 +234,16 @@ const ArticleDetail = () => {
           ))}
         </div>
 
-        {/* Back Button */}
+        {/* Action Buttons */}
         <div className="article-actions">
-          <button onClick={() => navigate(-1)} className="back-button">
-            ← Back to Articles
-          </button>
+          <div className="article-actions-buttons">
+            <button onClick={() => navigate(-1)} className="back-button">
+              ← Back to Articles
+            </button>
+            <button onClick={handleTakeQuiz} className="take-quiz-button">
+              🧠 Take Quiz
+            </button>
+          </div>
         </div>
       </div>
     </div>

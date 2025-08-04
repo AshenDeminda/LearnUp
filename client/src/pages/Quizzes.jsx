@@ -179,6 +179,7 @@ const Quizzes = () => {
             {filteredQuizzes.map((quiz) => (
               <QuizCard
                 key={quiz.id}
+                id={quiz.id}
                 title={quiz.title}
                 description={quiz.description}
                 duration={quiz.duration}
