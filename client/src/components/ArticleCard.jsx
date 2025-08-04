@@ -1,9 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 
-const ArticleCard = ({ title, description, readTime, image }) => {
+const ArticleCard = ({ id, title, description, readTime, image }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/article/${id}`);
+  };
+
   return (
-    <div className="custom-article-card">
+    <div className="custom-article-card" onClick={handleClick}>
       <div className="custom-article-image-wrapper">
         {image ? (
           <img src={image} alt={title} className="custom-article-image" />

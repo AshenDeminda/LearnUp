@@ -187,6 +187,7 @@ const Tutorials = () => {
             {filteredTutorials.map((tutorial) => (
               <ArticleCard
                 key={tutorial.id}
+                id={tutorial.id}
                 title={tutorial.title}
                 description={tutorial.description}
                 readTime={tutorial.readTime}

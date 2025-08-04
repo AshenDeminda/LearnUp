@@ -1,0 +1,237 @@
+/* Article Detail Page Styles */
+.article-detail-page {
+  min-height: 100vh;
+  background: #18181b;
+  color: #f4f4f5;
+  overflow-y: auto;
+}
+
+/* Hero Section */
+.article-hero {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.article-hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.article-hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(6px) brightness(0.6);
+  transform: scale(1.1);
+}
+
+.article-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(135deg, rgba(24, 24, 27, 0.7) 0%, rgba(45, 45, 68, 0.7) 100%),
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+}
+
+.article-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.article-category {
+  display: inline-block;
+  background: rgba(165, 180, 252, 0.2);
+  color: #a5b4fc;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(165, 180, 252, 0.3);
+}
+
+.article-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #fafafa;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.article-description {
+  font-size: 1.3rem;
+  color: #d4d4d8;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.article-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.article-read-time {
+  background: rgba(255, 255, 255, 0.1);
+  color: #a5b4fc;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Article Content */
+.article-content-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.article-content {
+  background: #27272a;
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.article-section {
+  margin-bottom: 3rem;
+}
+
+.article-section:last-child {
+  margin-bottom: 0;
+}
+
+.article-introduction {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #d4d4d8;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #a5b4fc;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Removed the pink-blue line after section titles */
+
+.section-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #c0c0c3;
+  text-align: justify;
+}
+
+/* Article Actions */
+.article-actions {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.back-button {
+  background: linear-gradient(135deg, #a5b4fc, #818cf8);
+  color: #1e1e2e;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(165, 180, 252, 0.3);
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(165, 180, 252, 0.4);
+}
+
+/* Article Not Found */
+.article-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.article-not-found h2 {
+  font-size: 2.5rem;
+  color: #a5b4fc;
+  margin-bottom: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .article-title {
+    font-size: 2.5rem;
+  }
+  
+  .article-description {
+    font-size: 1.1rem;
+  }
+  
+  .article-content-container {
+    padding: 2rem 1rem;
+  }
+  
+  .article-content {
+    padding: 2rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .section-content {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-title {
+    font-size: 2rem;
+  }
+  
+  .article-hero-content {
+    padding: 0 1rem;
+  }
+  
+  .article-content {
+    padding: 1.5rem;
+  }
+} 

@@ -69,17 +69,18 @@ const Home = () => {
       {/* Articles Section */}
       <section className="articles-section">
         <h2 className="section-title">Featured Articles</h2>
-        <div className="articles-grid">
-          {articles.map((article) => (
-            <ArticleCard
-              key={article.id}
-              title={article.title}
-              description={article.description}
-              readTime={article.readTime}
-              image={article.image}
-            />
-          ))}
-        </div>
+                  <div className="articles-grid">
+            {articles.map((article) => (
+              <ArticleCard
+                key={article.id}
+                id={article.id}
+                title={article.title}
+                description={article.description}
+                readTime={article.readTime}
+                image={article.image}
+              />
+            ))}
+          </div>
       </section>
 
       {/* Footer */}
