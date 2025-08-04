@@ -42,9 +42,9 @@ const Home = () => {
     },
     {
       id: 6,
-      title: "Machine Learning Fundamentals",
-      description: "Introduction to ML algorithms, supervised learning, and model evaluation.",
-      readTime: "40 min read",
+      title: "Docker Container Basics",
+      description: "Get started with Docker containers, images, and containerization concepts.",
+      readTime: "18 min read",
       image: "/src/assets/articlepics/6.jpg"
     }
   ];
