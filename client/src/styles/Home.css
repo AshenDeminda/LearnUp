@@ -30,6 +30,7 @@ html, body {
   text-align: center;
   color: #f4f4f5;
   padding: 0 20px;
+  position: relative;
 }
 
 .hero-content {
@@ -328,4 +329,37 @@ html, body {
   font-family: 'Inter', sans-serif;
   font-weight: 500;
   word-wrap: break-word;
+} 
+
+/* Scroll Down Symbol */
+.scroll-down-symbol {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  animation: bounce 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.scroll-down-symbol:hover {
+  transform: translateX(-50%) scale(1.1);
+}
+
+.scroll-down-symbol svg {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
 } 
