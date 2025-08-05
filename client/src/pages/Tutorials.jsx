@@ -18,7 +18,7 @@ const Tutorials = () => {
     "Machine Learning",
     "Cloud Computing",
     "Software Engineering",
-    "Database Systems"
+    "Database Systems",
   ];
 
   // Tutorial data - using ArticleCard format
