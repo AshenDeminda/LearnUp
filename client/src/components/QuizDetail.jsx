@@ -1,31 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { quizApi } from '../api/quizApi';
 import Navbar from './Navbar';
 import '../styles/QuizDetail.css';
 
 const QuizDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  
-  // Mock previous quiz results - in real app, this would come from backend
-  const [previousResults, setPreviousResults] = useState([
-    { quizId: 1, score: 85, date: '2024-01-15' },
-    { quizId: 2, score: 92, date: '2024-01-10' },
-    { quizId: 3, score: 78, date: '2024-01-05' },
-    { quizId: 4, score: 88, date: '2024-01-03' },
-    { quizId: 5, score: 95, date: '2024-01-02' },
-    { quizId: 6, score: 75, date: '2024-01-01' },
-    { quizId: 7, score: 82, date: '2023-12-31' },
-    { quizId: 8, score: 90, date: '2023-12-30' },
-    { quizId: 9, score: 77, date: '2023-12-29' },
-    { quizId: 10, score: 85, date: '2023-12-28' },
-    { quizId: 11, score: 92, date: '2023-12-27' },
-    { quizId: 12, score: 85, date: '2023-12-26' }
-  ]);
+  const [previousResults, setPreviousResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Quiz data - this will be expanded with full content
   const quizzes = [
@@ -1209,6 +1198,27 @@ const QuizDetail = () => {
 
   const quiz = quizzes.find(q => q.id === parseInt(id));
 
+  // Load user's quiz results on component mount
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      loadUserQuizResults();
+    }
+  }, [isAuthenticated, user]);
+
+  const loadUserQuizResults = async () => {
+    try {
+      const response = await quizApi.getUserQuizResults();
+      const results = response.data.quizResults.map(result => ({
+        quizId: result.quizId,
+        score: result.score,
+        date: new Date(result.completedAt).toISOString().split('T')[0]
+      }));
+      setPreviousResults(results);
+    } catch (error) {
+      console.error('Failed to load quiz results:', error);
+    }
+  };
+
   if (!quiz) {
     return (
       <div className="quiz-detail-page">
@@ -1230,7 +1240,7 @@ const QuizDetail = () => {
     }));
   };
 
-  const calculateScore = () => {
+  const calculateScore = async () => {
     let correctAnswers = 0;
     quiz.questions.forEach(question => {
       if (userAnswers[question.id] === question.correctAnswer) {
@@ -1249,9 +1259,24 @@ const QuizDetail = () => {
     };
     setPreviousResults(prev => [newResult, ...prev]);
     
-    // Here you would send the score to your backend
-    // Example: saveQuizResult(quiz.id, percentage);
-    console.log(`Quiz completed! Score: ${percentage}%`);
+    // Save quiz result to backend if user is authenticated
+    if (isAuthenticated && user) {
+      setIsLoading(true);
+      try {
+        await quizApi.saveQuizResult({
+          quizId: quiz.id,
+          score: percentage,
+          userAnswers: userAnswers
+        });
+        console.log(`Quiz result saved! Score: ${percentage}%`);
+      } catch (error) {
+        console.error('Failed to save quiz result:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      console.log(`Quiz completed! Score: ${percentage}%`);
+    }
   };
 
   const handleNextQuestion = () => {
@@ -1355,8 +1380,9 @@ const QuizDetail = () => {
                   <button 
                     onClick={calculateScore}
                     className="nav-button submit-button"
+                    disabled={isLoading}
                   >
-                    Submit Quiz
+                    {isLoading ? "Submitting..." : "Submit Quiz"}
                   </button>
                 ) : (
                   <button 

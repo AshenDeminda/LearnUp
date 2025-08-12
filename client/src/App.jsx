@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import UserSettings from "./pages/UserSettings";
 import ArticleDetail from "./components/ArticleDetail";
 import QuizDetail from "./components/QuizDetail";
+import { AuthProvider } from "./context/AuthContext";
 import './App.css';
 import React from "react";
 
@@ -36,9 +37,11 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 

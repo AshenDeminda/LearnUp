@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/UserSettings.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../context/AuthContext';
+import { userApi } from '../api/userApi';
 import profileDefault from '../assets/react.svg';
 
 function UserSettings() {
+  const { user, updateUser } = useAuth();
   const [userData, setUserData] = useState({
-    name: 'John Doe',
-    age: '',
-    email: 'john@example.com',
-    profileImage: '',
+    name: user?.name || '',
+    age: user?.age || '',
+    email: user?.email || '',
+    profileImage: user?.profileImage || '',
     currentPassword: '',
     newPassword: '',
     confirmNewPassword: '',
@@ -17,6 +20,20 @@ function UserSettings() {
   });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [profilePreview, setProfilePreview] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Update form data when user changes
+  useEffect(() => {
+    if (user) {
+      setUserData(prev => ({
+        ...prev,
+        name: user.name || '',
+        age: user.age || '',
+        email: user.email || '',
+        profileImage: user.profileImage || ''
+      }));
+    }
+  }, [user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,12 +52,27 @@ function UserSettings() {
     }
   };
 
-  const updateProfile = (e) => {
+  const updateProfile = async (e) => {
     e.preventDefault();
-    toast.success('Profile updated successfully!');
+    setIsLoading(true);
+    
+    try {
+      const response = await userApi.updateProfile({
+        name: userData.name,
+        age: userData.age,
+        email: userData.email
+      });
+      
+      updateUser(response.data.user);
+      toast.success('Profile updated successfully!');
+    } catch (error) {
+      toast.error(error.message || 'Failed to update profile');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const changePassword = (e) => {
+  const changePassword = async (e) => {
     e.preventDefault();
     if (userData.newPassword !== userData.confirmNewPassword) {
       toast.error('New passwords do not match');
@@ -50,8 +82,22 @@ function UserSettings() {
       toast.error('Please fill all password fields');
       return;
     }
-    toast.success('Password changed successfully!');
-    setUserData({ ...userData, currentPassword: '', newPassword: '', confirmNewPassword: '' });
+    
+    setIsLoading(true);
+    
+    try {
+      await userApi.changePassword({
+        currentPassword: userData.currentPassword,
+        newPassword: userData.newPassword
+      });
+      
+      toast.success('Password changed successfully!');
+      setUserData({ ...userData, currentPassword: '', newPassword: '', confirmNewPassword: '' });
+    } catch (error) {
+      toast.error(error.message || 'Failed to change password');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDeleteAccount = (e) => {
@@ -63,10 +109,20 @@ function UserSettings() {
     setShowDeleteConfirm(true);
   };
 
-  const confirmDeleteAccount = () => {
-    setShowDeleteConfirm(false);
-    toast.success('Account deleted (demo only)');
-    setUserData({ ...userData, deleteAccountPassword: '' });
+  const confirmDeleteAccount = async () => {
+    setIsLoading(true);
+    
+    try {
+      await userApi.deleteAccount(userData.deleteAccountPassword);
+      setShowDeleteConfirm(false);
+      toast.success('Account deleted successfully');
+      // Redirect to signin page after account deletion
+      window.location.href = '/signin';
+    } catch (error) {
+      toast.error(error.message || 'Failed to delete account');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -99,7 +155,9 @@ function UserSettings() {
               <label>Email</label>
               <input type="email" name="email" value={userData.email} onChange={handleInputChange} />
             </div>
-            <button className="btn" type="submit">Update Profile</button>
+            <button className="btn" type="submit" disabled={isLoading}>
+              {isLoading ? "Updating..." : "Update Profile"}
+            </button>
           </div>
         </div>
       </form>
@@ -117,7 +175,9 @@ function UserSettings() {
           <label>Confirm New Password</label>
           <input type="password" name="confirmNewPassword" value={userData.confirmNewPassword} onChange={handleInputChange} />
         </div>
-        <button className="btn" type="submit">Change Password</button>
+        <button className="btn" type="submit" disabled={isLoading}>
+          {isLoading ? "Changing..." : "Change Password"}
+        </button>
       </form>
       <form className="settings-form" onSubmit={handleDeleteAccount}>
         <h2 className="section-title">Delete Account</h2>
@@ -125,7 +185,9 @@ function UserSettings() {
           <label>Enter Password</label>
           <input type="password" name="deleteAccountPassword" value={userData.deleteAccountPassword} onChange={handleInputChange} />
         </div>
-        <button className="btn btn-danger" type="submit">Delete Account</button>
+        <button className="btn btn-danger" type="submit" disabled={isLoading}>
+          {isLoading ? "Deleting..." : "Delete Account"}
+        </button>
       </form>
       {showDeleteConfirm && (
         <div className="delete-confirm-modal">
@@ -133,8 +195,10 @@ function UserSettings() {
             <h3>Are you sure you want to delete your account?</h3>
             <p>This action cannot be undone.</p>
             <div className="modal-actions">
-              <button className="btn btn-danger" onClick={confirmDeleteAccount}>Yes, Delete</button>
-              <button className="btn" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
+              <button className="btn btn-danger" onClick={confirmDeleteAccount} disabled={isLoading}>
+                {isLoading ? "Deleting..." : "Yes, Delete"}
+              </button>
+              <button className="btn" onClick={() => setShowDeleteConfirm(false)} disabled={isLoading}>Cancel</button>
             </div>
           </div>
         </div>

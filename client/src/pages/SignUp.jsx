@@ -1,31 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/SignInUp.css";
 
 function SignUp() {
   const navigate = useNavigate();
+  const { signup, error } = useAuth();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     document.body.classList.add("auth-body");
     return () => document.body.classList.remove("auth-body");
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setPasswordError("Passwords do not match");
       return;
     }
     setPasswordError("");
-    console.log("Full Name:", fullName);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    navigate("/signin"); // Redirect to sign in after successful signup
+    setIsLoading(true);
+    
+    try {
+      const result = await signup({ name: fullName, email, password });
+      if (result.success) {
+        navigate("/signin");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -67,8 +78,11 @@ function SignUp() {
             required
           />
           {passwordError && <p style={{ color: '#ff4444', margin: '0' }}>{passwordError}</p>}
-          <button type="submit" className="form-button">Sign Up</button>
+          <button type="submit" className="form-button" disabled={isLoading}>
+            {isLoading ? "Signing Up..." : "Sign Up"}
+          </button>
         </form>
+        {error && <p className="error-message" style={{ color: '#ff4444', textAlign: 'center', margin: '10px 0' }}>{error}</p>}
         <p className="form-footer">
           Already have an account? <Link to="/signin">Sign In</Link>
         </p>

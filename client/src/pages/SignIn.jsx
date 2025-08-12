@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/SignInUp.css";
 
 function SignIn() {
   const navigate = useNavigate();
+  const { signin, error } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     document.body.classList.add("auth-body");
     return () => document.body.classList.remove("auth-body");
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    navigate("/dashboard"); // Redirect to dashboard after successful signin
+    setIsLoading(true);
+    
+    try {
+      const result = await signin({ email, password });
+      if (result.success) {
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.error("Signin error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -41,8 +53,11 @@ function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="form-button">Sign In</button>
+          <button type="submit" className="form-button" disabled={isLoading}>
+            {isLoading ? "Signing In..." : "Sign In"}
+          </button>
         </form>
+        {error && <p className="error-message" style={{ color: '#ff4444', textAlign: 'center', margin: '10px 0' }}>{error}</p>}
         <p className="form-footer">
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>

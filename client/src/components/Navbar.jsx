@@ -1,17 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/Navbar.css";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-
-  // Mock user data - replace with actual user data from your auth system
-  const user = {
-    name: "John Doe",
-    image: "/default-avatar.png"
-  };
+  const { user, signout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -25,7 +21,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
-    // Add your logout logic here
+    signout();
     navigate("/signin");
   };
 
@@ -55,8 +51,8 @@ const Navbar = () => {
           className="user-profile-trigger"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
-          <img src={user.image} alt="Profile" className="user-avatar" />
-          <span className="user-name">{user.name}</span>
+          <img src={user?.profileImage || "/default-avatar.png"} alt="Profile" className="user-avatar" />
+          <span className="user-name">{user?.name || "User"}</span>
         </div>
         {isDropdownOpen && (
           <div className="user-dropdown">
