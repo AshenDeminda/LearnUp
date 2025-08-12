@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Home.css';
 import ArticleCard from '../components/ArticleCard';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   // Featured articles from tutorials
   const articles = [
     {
@@ -49,6 +52,10 @@ const Home = () => {
     }
   ];
 
+  const handleGetStarted = () => {
+    navigate('/tutorials');
+  };
+
   return (
     <div className="home-container">
       {/* Hero Section */}
@@ -56,7 +63,7 @@ const Home = () => {
         <div className="hero-content">
           <h1 className="hero-title">Welcome to LearnUp</h1>
           <p className="hero-subtitle">Your journey to knowledge starts here</p>
-          <button className="cta-button">Get Started</button>
+          <button className="cta-button" onClick={handleGetStarted}>Get Started</button>
         </div>
         {/* Scroll Down Symbol */}
         <div className="scroll-down-symbol">
