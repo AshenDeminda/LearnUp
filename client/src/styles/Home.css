@@ -156,28 +156,46 @@ html, body {
   background-color: #18181b;
   color: #f4f4f5;
   padding: 4rem 2rem 2rem;
+  text-align: center; /* center align everything */
 }
 
+/* Footer Content Layout */
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 3rem;
 }
 
+/* Section Styling */
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Headings */
 .footer-section h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
   color: #a5b4fc;
 }
 
 .footer-section h4 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 1rem;
   color: #a5b4fc;
 }
 
+/* Paragraphs */
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 250px;
+}
+
+/* Lists */
 .footer-section ul {
   list-style: none;
   padding: 0;
@@ -186,32 +204,54 @@ html, body {
 .footer-section ul li {
   margin-bottom: 0.5rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .footer-section ul li:hover {
   color: #818cf8;
+  transform: translateX(3px);
 }
 
-.social-links {
+/* Social Links Column Layout */
+.social-links-column {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.social-links span {
-  cursor: pointer;
-  transition: color 0.3s ease;
+/* Social Item (Name above Logo) */
+.social-item {
+  display: flex;
+  flex-direction: column; /* stack name & icon */
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.social-links span:hover {
+/* Social Name */
+.social-item span {
+  font-size: 0.9rem;
+  color: #f4f4f5;
+}
+
+/* Social Icon */
+.social-item svg {
+  font-size: 2rem;
+  color: #f4f4f5;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-item:hover svg {
   color: #818cf8;
+  transform: scale(1.2);
 }
 
+/* Footer Bottom */
 .footer-bottom {
-  text-align: center;
   margin-top: 3rem;
   padding-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
 }
 
 /* Animations */
