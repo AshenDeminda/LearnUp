@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Navbar.css";
+import profileDefault from "../assets/user.png";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -51,7 +52,7 @@ const Navbar = () => {
           className="user-profile-trigger"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
-          <img src={user?.profileImage || "/default-avatar.png"} alt="Profile" className="user-avatar" />
+          <img src={user?.profileImage || profileDefault} alt="Profile" className="user-avatar" />
           <span className="user-name">{user?.name || "User"}</span>
         </div>
         {isDropdownOpen && (

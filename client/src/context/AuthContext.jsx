@@ -79,6 +79,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateUser = (updatedUser) => {
+    console.log('Updating user in context:', updatedUser);
     setUser(updatedUser);
   };
 

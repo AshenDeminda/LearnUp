@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '../context/AuthContext';
 import { userApi } from '../api/userApi';
-import profileDefault from '../assets/react.svg';
+import profileDefault from '../assets/user.png';
 
 function UserSettings() {
   const { user, updateUser } = useAuth();
@@ -43,10 +43,27 @@ function UserSettings() {
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Check file size (limit to 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Image size should be less than 5MB');
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfilePreview(reader.result);
-        setUserData({ ...userData, profileImage: reader.result });
+              const imageData = reader.result;
+      console.log('Image data length:', imageData.length);
+      console.log('Image data type:', typeof imageData);
+      console.log('Image data starts with:', imageData.substring(0, 50));
+      
+      // Validate that it's a proper data URL
+      if (!imageData.startsWith('data:image/')) {
+        toast.error('Invalid image format');
+        return;
+      }
+      
+      setProfilePreview(imageData);
+      setUserData({ ...userData, profileImage: imageData });
       };
       reader.readAsDataURL(file);
     }
@@ -60,10 +77,13 @@ function UserSettings() {
       const response = await userApi.updateProfile({
         name: userData.name,
         age: userData.age,
-        email: userData.email
+        email: userData.email,
+        profileImage: userData.profileImage
       });
       
       updateUser(response.data.user);
+      // Reset profile preview to show the updated image
+      setProfilePreview('');
       toast.success('Profile updated successfully!');
     } catch (error) {
       toast.error(error.message || 'Failed to update profile');
