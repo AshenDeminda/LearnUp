@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const UserQuizResult = require('../models/UserQuizResult');
 const bcrypt = require('bcryptjs');
 
 // Update user profile
@@ -143,6 +144,9 @@ const deleteAccount = async (req, res) => {
         message: 'Password is incorrect'
       });
     }
+
+    // Delete all quiz results associated with the user
+    await UserQuizResult.deleteMany({ userId });
 
     // Delete user
     await User.findByIdAndDelete(userId);

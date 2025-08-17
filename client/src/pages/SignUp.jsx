@@ -63,7 +63,7 @@ function SignUp() {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Password (at least 6 characters)"
             className="form-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
