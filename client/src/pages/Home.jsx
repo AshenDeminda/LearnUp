@@ -1,63 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import ArticleCard from "../components/ArticleCard";
 import { FaFacebook, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { articleApi } from "../api/articleApi";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  // Featured articles from tutorials
-  const articles = [
-    {
-      id: 1,
-      title: "HTML Basics Tutorial",
-      description:
-        "Learn the fundamentals of HTML markup language, tags, and document structure.",
-      readTime: "15 min read",
-      image: "/src/assets/articlepics/1.jpg",
-    },
-    {
-      id: 2,
-      title: "CSS Styling Fundamentals",
-      description:
-        "Master CSS selectors, properties, and layout techniques for modern web design.",
-      readTime: "20 min read",
-      image: "/src/assets/articlepics/2.jpg",
-    },
-    {
-      id: 3,
-      title: "JavaScript ES6+ Features",
-      description:
-        "Explore modern JavaScript features including arrow functions, destructuring, and modules.",
-      readTime: "25 min read",
-      image: "/src/assets/articlepics/3.jpg",
-    },
-    {
-      id: 4,
-      title: "React Hooks Deep Dive",
-      description:
-        "Understand React hooks, custom hooks, and state management patterns.",
-      readTime: "30 min read",
-      image: "/src/assets/articlepics/4.jpg",
-    },
-    {
-      id: 5,
-      title: "Python Data Analysis",
-      description:
-        "Learn pandas, numpy, and matplotlib for data manipulation and visualization.",
-      readTime: "35 min read",
-      image: "/src/assets/articlepics/5.jpg",
-    },
-    {
-      id: 6,
-      title: "Docker Container Basics",
-      description:
-        "Get started with Docker containers, images, and containerization concepts.",
-      readTime: "18 min read",
-      image: "/src/assets/articlepics/6.jpg",
-    },
-  ];
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchFeatured = async () => {
+      try {
+        const { data } = await articleApi.list();
+        setArticles((data.items || []).slice(0, 6));
+      } catch (e) {
+        setError(e.message || 'Failed to load articles');
+      }
+    };
+    fetchFeatured();
+  }, []);
 
   const handleGetStarted = () => {
     navigate("/tutorials");
@@ -91,6 +55,7 @@ const Home = () => {
       {/* Articles Section */}
       <section className="articles-section">
         <h2 className="section-title">Featured Articles</h2>
+        {error && <div style={{ color: '#ff6b6b' }}>{error}</div>}
         <div className="articles-grid">
           {articles.map((article) => (
             <ArticleCard

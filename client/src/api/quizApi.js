@@ -29,6 +29,15 @@ const apiCall = async (endpoint, options = {}) => {
 
 // Quiz API calls
 export const quizApi = {
+  // Public: list and get quizzes
+  list: async (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return apiCall(`/quizzes${query ? `?${query}` : ''}`);
+  },
+  get: async (id) => {
+    return apiCall(`/quizzes/${id}`);
+  },
+
   // Save quiz result
   saveQuizResult: async (quizData) => {
     return apiCall('/quizzes/results', {
@@ -51,6 +60,14 @@ export const quizApi = {
   getUserBestScores: async () => {
     return apiCall('/quizzes/best-scores');
   },
+
+  // Admin upload quiz
+  upload: async ({ json, imageBase64, imageExt }) => {
+    return apiCall('/quizzes', {
+      method: 'POST',
+      body: JSON.stringify({ json, imageBase64, imageExt })
+    });
+  }
 };
 
 export default quizApi;

@@ -1,3 +1,40 @@
+API formats for Articles and Quizzes
+------------------------------------
+
+Article JSON format (upload via /api/articles):
+
+{
+  "title": "HTML Basics Tutorial",
+  "description": "Master the fundamentals of HTML...",
+  "readTime": "25 min read",
+  "category": "Web Development",
+  "image": "" ,
+  "content": {
+    "introduction": "...",
+    "sections": [
+      { "title": "What is HTML?", "content": "..." }
+    ]
+  }
+}
+
+Quiz JSON format (upload via /api/quizzes):
+
+{
+  "title": "HTML Fundamentals Quiz",
+  "description": "Test your knowledge...",
+  "duration": "10 min quiz",
+  "category": "Web Development",
+  "image": "",
+  "questions": [
+    { "id": 1, "question": "What does HTML stand for?", "options": ["...","..."], "correctAnswer": 0 }
+  ]
+}
+
+Notes:
+- If you omit numeric top-level id, it will auto-increment on save.
+- If you omit question ids, they will auto-number starting at 1.
+- Images: Admin uploads accept base64 image data; backend stores them as /uploads/article_<id>.<ext> and /uploads/quiz_<id>.<ext> and returns the served URL.
+
 # LearnUp - Educational Platform
 
 A full-stack educational platform built with React frontend and Node.js backend, featuring user authentication, quiz management, and learning content.

@@ -1,0 +1,250 @@
+/* Admin Panel Styles - LearnUp Theme */
+.admin-panel-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 20px 20px 20px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.admin-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-panel-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 8px;
+}
+
+.admin-panel-desc {
+  color: #a8b2d1;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.admin-content {
+  display: flex;
+  gap: 40px;
+  max-width: 1100px;
+  width: 100%;
+  min-height: 500px;
+}
+
+.admin-upload-section {
+  flex: 1;
+  max-width: 500px;
+}
+
+.admin-examples-section {
+  flex: 1;
+  max-width: 600px;
+}
+
+.admin-panel-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.admin-panel-toggle-btn {
+  background: #2d3748;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-panel-toggle-btn:hover {
+  background: #4a5568;
+}
+
+.admin-panel-toggle-btn.active {
+  background: #667eea;
+  color: #fff;
+}
+
+.admin-panel-form {
+  background: rgba(35, 38, 58, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-panel-form h2 {
+  color: #667eea;
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.admin-panel-form .image-requirement {
+  background: rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.4);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 16px;
+  color: #a8b2d1;
+  font-size: 0.85rem;
+}
+
+.admin-panel-form .form-group {
+  margin-bottom: 16px;
+}
+
+.admin-panel-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #f3f4f6;
+  font-size: 0.9rem;
+}
+
+.admin-panel-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  background: rgba(24, 26, 32, 0.8);
+  color: #f3f4f6;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.admin-panel-form input[type="file"]:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  background: rgba(24, 26, 32, 0.9);
+}
+
+.admin-panel-form .placeholder {
+  width: 100%;
+  height: 50px;
+  background: rgba(24, 26, 32, 0.8);
+  border: 2px dashed rgba(102, 126, 234, 0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #667eea;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.admin-panel-form .placeholder:hover {
+  border-color: rgba(102, 126, 234, 0.7);
+  background: rgba(24, 26, 32, 0.9);
+}
+
+.admin-panel-form button {
+  background: #667eea;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 12px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.admin-panel-form button:hover {
+  background: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.admin-panel-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Examples Section */
+.examples-section {
+  background: rgba(35, 38, 58, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.examples-section h3 {
+  color: #667eea;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.example-content {
+  background: rgba(0,0,0,0.4);
+  border-radius: 8px;
+  padding: 16px;
+  max-height: 350px;
+  overflow-y: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #e2e8f0;
+}
+
+.example-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.example-content::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+}
+
+.example-content::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 4px;
+}
+
+.example-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .admin-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .admin-upload-section,
+  .admin-examples-section {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-panel-container {
+    padding: 16px 16px 30px 16px;
+  }
+  
+  .admin-panel-title {
+    font-size: 1.8rem;
+  }
+  
+  .admin-panel-form {
+    padding: 20px;
+  }
+  
+  .examples-section {
+    padding: 20px;
+  }
+}

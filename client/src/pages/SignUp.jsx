@@ -43,7 +43,7 @@ function SignUp() {
     <div className="auth-page">
       <div className="form-container">
         <div className="logo">Learn<span>Up</span></div>
-        <h2 className="form-title">Sign Up</h2>
+  <h2 className="form-title">Sign Up</h2>
         <form className="form" onSubmit={handleSubmit}>
           <input
             type="text"

@@ -10,12 +10,13 @@ import UserSettings from "./pages/UserSettings";
 import ArticleDetail from "./components/ArticleDetail";
 import QuizDetail from "./components/QuizDetail";
 import { AuthProvider } from "./context/AuthContext";
+import Admin from "./pages/Admin";
 import './App.css';
 import React from "react";
 
 function AppContent() {
   const location = useLocation();
-  const hideNavbar = location.pathname === "/signin" || location.pathname === "/signup";
+  const hideNavbar = location.pathname === "/signin" || location.pathname === "/signup" || location.pathname === "/admin";
   return (
     <>
       {!hideNavbar && <Navbar />}
@@ -30,6 +31,7 @@ function AppContent() {
         <Route path="/settings" element={<UserSettings />} />
         <Route path="/article/:id" element={<ArticleDetail />} />
         <Route path="/quiz/:id" element={<QuizDetail />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </>
   );

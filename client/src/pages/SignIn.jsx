@@ -22,7 +22,11 @@ function SignIn() {
     try {
       const result = await signin({ email, password });
       if (result.success) {
-        navigate("/dashboard");
+        if (result.user && result.user.isAdmin) {
+          navigate("/admin");
+        } else {
+          navigate("/dashboard");
+        }
       }
     } catch (error) {
       console.error("Signin error:", error);

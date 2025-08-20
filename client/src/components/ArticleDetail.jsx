@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import '../styles/ArticleDetail.css';
+import { articleApi } from '../api/articleApi';
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -637,7 +638,24 @@ const ArticleDetail = () => {
     
   ];
 
-  const article = articles.find(a => a.id === parseInt(id));
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        setLoading(true);
+        const { data } = await articleApi.get(id);
+        setArticle(data.item);
+      } catch (e) {
+        setError(e.message || 'Failed to load article');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticle();
+  }, [id]);
 
   // Mapping between articles and their corresponding quizzes
   const articleToQuizMapping = {
@@ -665,14 +683,23 @@ const ArticleDetail = () => {
     }
   };
 
-  if (!article) {
+  if (loading) {
+    return (
+      <div className="article-detail-page">
+        <Navbar />
+        <div className="article-not-found"><h2>Loading...</h2></div>
+      </div>
+    );
+  }
+
+  if (error || !article) {
     return (
       <div className="article-detail-page">
         <Navbar />
         <div className="article-not-found">
-          <h2>Article not found</h2>
-          <button onClick={() => navigate('/')} className="back-button">
-            Back to Home
+          <h2>{error || 'Article not found'}</h2>
+          <button onClick={() => navigate('/tutorials')} className="back-button">
+            Back to Tutorials
           </button>
         </div>
       </div>
@@ -686,7 +713,7 @@ const ArticleDetail = () => {
              {/* Hero Section */}
        <div className="article-hero">
          <div className="article-hero-background">
-           <img src={article.image} alt={article.title} className="article-hero-image" />
+           <img src={article.image && article.image.startsWith('/uploads') ? `http://localhost:5000${article.image}` : article.image} alt={article.title} className="article-hero-image" />
            <div className="article-hero-overlay"></div>
            <div className="article-hero-content">
              <div className="article-category">{article.category}</div>

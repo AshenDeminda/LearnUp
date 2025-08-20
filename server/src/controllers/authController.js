@@ -11,7 +11,7 @@ const generateToken = (userId) => {
 // User signup
 const signup = async (req, res) => {
   try {
-    const { name, email, password, age } = req.body;
+  const { name, email, password, age } = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -23,11 +23,14 @@ const signup = async (req, res) => {
     }
 
     // Create new user
+
+    // Only set isAdmin if provided (e.g., via DB/manual update)
     const user = new User({
       name,
       email,
       password,
       age: age || undefined
+      // isAdmin will be false by default unless set in DB
     });
 
     await user.save();

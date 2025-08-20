@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ArticleCard from "../components/ArticleCard";
 import Navbar from "../components/Navbar";
 import "../styles/Tutorials.css";
+import { articleApi } from "../api/articleApi";
 
 const Tutorials = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,105 +22,24 @@ const Tutorials = () => {
     "Database Systems",
   ];
 
-  // Tutorial data - using ArticleCard format
-  const tutorials = [
-    {
-      id: 1,
-      title: "HTML Basics Tutorial",
-      description: "Learn the fundamentals of HTML markup language, tags, and document structure.",
-      readTime: "15 min read",
-      category: "Web Development",
-      image: "/src/assets/articlepics/1.jpg"
-    },
-    {
-      id: 2,
-      title: "CSS Styling Fundamentals",
-      description: "Master CSS selectors, properties, and layout techniques for modern web design.",
-      readTime: "20 min read",
-      category: "Web Development",
-      image: "/src/assets/articlepics/2.jpg"
-    },
-    {
-      id: 3,
-      title: "JavaScript ES6+ Features",
-      description: "Explore modern JavaScript features including arrow functions, destructuring, and modules.",
-      readTime: "25 min read",
-      category: "Programming",
-      image: "/src/assets/articlepics/3.jpg"
-    },
-    {
-      id: 4,
-      title: "React Hooks Deep Dive",
-      description: "Understand React hooks, custom hooks, and state management patterns.",
-      readTime: "30 min read",
-      category: "Web Development",
-      image: "/src/assets/articlepics/4.jpg"
-    },
-    {
-      id: 5,
-      title: "Python Data Analysis",
-      description: "Learn pandas, numpy, and matplotlib for data manipulation and visualization.",
-      readTime: "35 min read",
-      category: "Data Science",
-      image: "/src/assets/articlepics/5.jpg"
-    },
-    {
-      id: 6,
-      title: "Docker Container Basics",
-      description: "Get started with Docker containers, images, and containerization concepts.",
-      readTime: "18 min read",
-      category: "DevOps",
-      image: "/src/assets/articlepics/6.jpg"
-    },
-    {
-      id: 7,
-      title: "Machine Learning Fundamentals",
-      description: "Introduction to ML algorithms, supervised learning, and model evaluation.",
-      readTime: "40 min read",
-      category: "Machine Learning",
-      image: "/src/assets/articlepics/7.jpg"
-    },
-    {
-      id: 8,
-      title: "AWS Cloud Services",
-      description: "Learn about AWS core services including EC2, S3, and Lambda functions.",
-      readTime: "28 min read",
-      category: "Cloud Computing",
-      image: "/src/assets/articlepics/8.jpg"
-    },
-    {
-      id: 9,
-      title: "SQL Database Design",
-      description: "Master database design principles, normalization, and SQL queries.",
-      readTime: "22 min read",
-      category: "Database Systems",
-      image: "/src/assets/articlepics/9.jpg"
-    },
-    {
-      id: 10,
-      title: "Cybersecurity Best Practices",
-      description: "Learn essential security practices for protecting applications and data.",
-      readTime: "32 min read",
-      category: "Cybersecurity",
-      image: "/src/assets/articlepics/10.jpg"
-    },
-    {
-      id: 11,
-      title: "Git Version Control",
-      description: "Master Git workflows, branching strategies, and collaborative development.",
-      readTime: "16 min read",
-      category: "Software Engineering",
-      image: "/src/assets/articlepics/11.jpg"
-    },
-    {
-      id: 12,
-      title: "Neural Networks Introduction",
-      description: "Understand the basics of neural networks and deep learning concepts.",
-      readTime: "45 min read",
-      category: "Artificial Intelligence",
-      image: "/src/assets/articlepics/12.jpg"
-    }
-  ];
+  const [tutorials, setTutorials] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        setLoading(true);
+        const { data } = await articleApi.list();
+        setTutorials(data.items || []);
+      } catch (e) {
+        setError(e.message || 'Failed to load tutorials');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticles();
+  }, []);
 
   // Filter tutorials based on search and category
   const filteredTutorials = tutorials.filter(tutorial => {
@@ -183,18 +103,22 @@ const Tutorials = () => {
             {selectedCategory === "All" ? "All Tutorials" : `${selectedCategory} Tutorials`}
           </h2>
           
-          <div className="tutorials-grid">
-            {filteredTutorials.map((tutorial) => (
-              <ArticleCard
-                key={tutorial.id}
-                id={tutorial.id}
-                title={tutorial.title}
-                description={tutorial.description}
-                readTime={tutorial.readTime}
-                image={tutorial.image}
-              />
-            ))}
-          </div>
+          {loading && <div style={{ color: '#C0C0C3' }}>Loading...</div>}
+          {error && <div style={{ color: '#ff6b6b' }}>{error}</div>}
+          {!loading && !error && (
+            <div className="tutorials-grid">
+              {filteredTutorials.map((tutorial) => (
+                <ArticleCard
+                  key={tutorial.id}
+                  id={tutorial.id}
+                  title={tutorial.title}
+                  description={tutorial.description}
+                  readTime={tutorial.readTime}
+                  image={tutorial.image}
+                />
+              ))}
+            </div>
+          )}
 
           {filteredTutorials.length === 0 && (
             <div style={{ 

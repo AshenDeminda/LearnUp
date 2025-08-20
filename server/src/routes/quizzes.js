@@ -5,11 +5,16 @@ const {
   getQuizResult, 
   getUserBestScores 
 } = require('../controllers/quizController');
+const { listQuizzes, getQuiz } = require('../controllers/adminController');
 const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// All routes require authentication
+// Public quiz list and get
+router.get('/', listQuizzes);
+router.get('/:id', getQuiz);
+
+// All routes below require authentication
 router.use(auth);
 
 // Save quiz result

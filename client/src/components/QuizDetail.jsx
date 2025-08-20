@@ -16,7 +16,27 @@ const QuizDetail = () => {
   const [previousResults, setPreviousResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Quiz data - this will be expanded with full content
+  // Load quiz from backend
+  const [quiz, setQuiz] = useState(null);
+  const [loadingQuiz, setLoadingQuiz] = useState(false);
+  const [quizError, setQuizError] = useState('');
+
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        setLoadingQuiz(true);
+        const { data } = await quizApi.get(id);
+        setQuiz(data.item);
+      } catch (e) {
+        setQuizError(e.message || 'Failed to load quiz');
+      } finally {
+        setLoadingQuiz(false);
+      }
+    };
+    fetchQuiz();
+  }, [id]);
+
+  // Legacy hardcoded data placeholder (to be removed)
   const quizzes = [
     {
       id: 1,
@@ -1196,7 +1216,8 @@ const QuizDetail = () => {
     }
   ];
 
-  const quiz = quizzes.find(q => q.id === parseInt(id));
+  // Use fetched quiz
+  // const quiz = quizzes.find(q => q.id === parseInt(id));
 
   // Load user's quiz results on component mount
   useEffect(() => {
@@ -1219,12 +1240,25 @@ const QuizDetail = () => {
     }
   };
 
-  if (!quiz) {
+  if (loadingQuiz) {
     return (
       <div className="quiz-detail-page">
         <Navbar />
         <div className="quiz-not-found">
-          <h2>Quiz not found</h2>
+          <h2>Loading...</h2>
+          <button onClick={() => navigate('/quizzes')} className="back-button">
+            Back to Quizzes
+          </button>
+        </div>
+      </div>
+    );
+  }
+  if (quizError || !quiz) {
+    return (
+      <div className="quiz-detail-page">
+        <Navbar />
+        <div className="quiz-not-found">
+          <h2>{quizError || 'Quiz not found'}</h2>
           <button onClick={() => navigate('/quizzes')} className="back-button">
             Back to Quizzes
           </button>
@@ -1303,7 +1337,7 @@ const QuizDetail = () => {
       {/* Hero Section */}
       <div className="quiz-hero">
         <div className="quiz-hero-background">
-          <img src={quiz.image} alt={quiz.title} className="quiz-hero-image" />
+          <img src={quiz.image && quiz.image.startsWith('/uploads') ? `http://localhost:5000${quiz.image}` : quiz.image} alt={quiz.title} className="quiz-hero-image" />
           <div className="quiz-hero-overlay"></div>
           <div className="quiz-hero-content">
             <div className="quiz-category">{quiz.category}</div>

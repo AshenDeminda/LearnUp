@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuizCard from "../components/QuizCard";
 import Navbar from "../components/Navbar";
 import "../styles/Quizzes.css";
+import { quizApi } from "../api/quizApi";
 
 const Quizzes = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,93 +22,24 @@ const Quizzes = () => {
     "Database Systems"
   ];
 
-  // Quiz data
-  const quizzes = [
-    {
-      id: 1,
-      title: "HTML Basics Quiz",
-      description: "Test your understanding of HTML tags, forms, and attributes.",
-      duration: "8 min quiz",
-      category: "Web Development"
-    },
-    {
-      id: 2,
-      title: "CSS Fundamentals Quiz",
-      description: "Challenge yourself with CSS selectors, properties, and layouts.",
-      duration: "10 min quiz",
-      category: "Web Development"
-    },
-    {
-      id: 3,
-      title: "JavaScript Basics Quiz",
-      description: "Test your knowledge of JavaScript fundamentals and ES6 features.",
-      duration: "12 min quiz",
-      category: "Programming"
-    },
-    {
-      id: 4,
-      title: "React Components Quiz",
-      description: "Evaluate your understanding of React components and hooks.",
-      duration: "15 min quiz",
-      category: "Web Development"
-    },
-    {
-      id: 5,
-      title: "Python Data Types Quiz",
-      description: "Test your knowledge of Python data types and structures.",
-      duration: "10 min quiz",
-      category: "Programming"
-    },
-    {
-      id: 6,
-      title: "Docker Basics Quiz",
-      description: "Challenge yourself with Docker containers and images.",
-      duration: "12 min quiz",
-      category: "DevOps"
-    },
-    {
-      id: 7,
-      title: "Machine Learning Quiz",
-      description: "Test your understanding of ML algorithms and concepts.",
-      duration: "18 min quiz",
-      category: "Machine Learning"
-    },
-    {
-      id: 8,
-      title: "AWS Services Quiz",
-      description: "Evaluate your knowledge of AWS cloud services.",
-      duration: "15 min quiz",
-      category: "Cloud Computing"
-    },
-    {
-      id: 9,
-      title: "SQL Database Quiz",
-      description: "Test your SQL query skills and database concepts.",
-      duration: "12 min quiz",
-      category: "Database Systems"
-    },
-    {
-      id: 10,
-      title: "Cybersecurity Quiz",
-      description: "Challenge yourself with security concepts and best practices.",
-      duration: "14 min quiz",
-      category: "Cybersecurity"
-    },
-    {
-      id: 11,
-      title: "Git Version Control Quiz",
-      description: "Test your knowledge of Git workflows and commands.",
-      duration: "10 min quiz",
-      category: "Software Engineering"
-    },
-    {
-      id: 12,
-      title: "AI Fundamentals Quiz",
-      description: "Evaluate your understanding of artificial intelligence concepts.",
-      duration: "16 min quiz",
-      category: "Artificial Intelligence"
-    }
-  ];
+  const [quizzes, setQuizzes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        setLoading(true);
+        const { data } = await quizApi.list();
+        setQuizzes(data.items || []);
+      } catch (e) {
+        setError(e.message || 'Failed to load quizzes');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchQuizzes();
+  }, []);
 
   // Filter quizzes based on search and category
   const filteredQuizzes = quizzes.filter(quiz => {
@@ -175,17 +107,21 @@ const Quizzes = () => {
             {selectedCategory === "All" ? "All Quizzes" : `${selectedCategory} Quizzes`}
           </h2>
           
-          <div className="quizzes-grid">
-            {filteredQuizzes.map((quiz) => (
-              <QuizCard
-                key={quiz.id}
-                id={quiz.id}
-                title={quiz.title}
-                description={quiz.description}
-                duration={quiz.duration}
-              />
-            ))}
-          </div>
+          {loading && <div style={{ color: '#C0C0C3' }}>Loading...</div>}
+          {error && <div style={{ color: '#ff6b6b' }}>{error}</div>}
+          {!loading && !error && (
+            <div className="quizzes-grid">
+              {filteredQuizzes.map((quiz) => (
+                <QuizCard
+                  key={quiz.id}
+                  id={quiz.id}
+                  title={quiz.title}
+                  description={quiz.description}
+                  duration={quiz.duration}
+                />
+              ))}
+            </div>
+          )}
 
           {filteredQuizzes.length === 0 && (
             <div style={{ 
