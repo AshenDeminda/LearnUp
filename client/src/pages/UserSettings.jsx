@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/UserSettings.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '../styles/ToastifyCustom.css';
 import { useAuth } from '../context/AuthContext';
 import { userApi } from '../api/userApi';
 import profileDefault from '../assets/user.png';

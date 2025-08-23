@@ -1,0 +1,26 @@
+/* Custom Toastify styles for LearnUp dark theme */
+.Toastify__toast {
+  background: #23263a !important;
+  color: #8ab4f8 !important;
+  border-radius: 8px !important;
+  font-size: 1.05em;
+}
+.Toastify__toast--success {
+  background: #5D64E4 !important;
+  color: #fff !important;
+}
+.Toastify__toast--error {
+  background: #b00020 !important;
+  color: #fff !important;
+}
+.Toastify__toast--info {
+  background: #235390 !important;
+  color: #fff !important;
+}
+.Toastify__toast--warning {
+  background: #ff9800 !important;
+  color: #fff !important;
+}
+.Toastify__progress-bar {
+  background: #646cff !important;
+}
