@@ -13,7 +13,8 @@ const QuizDetail = () => {
   const [userAnswers, setUserAnswers] = useState({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [score, setScore] = useState(0);
-  const [previousResults, setPreviousResults] = useState([]);
+  const [previousResults, setPreviousResults] = useState([]); // all results (legacy)
+  const [currentQuizResult, setCurrentQuizResult] = useState(null); // result for this quiz
   const [isLoading, setIsLoading] = useState(false);
 
   // Load quiz from backend
@@ -39,26 +40,30 @@ const QuizDetail = () => {
   // Use fetched quiz
   // const quiz = quizzes.find(q => q.id === parseInt(id));
 
-  // Load user's quiz results on component mount
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      loadUserQuizResults();
-    }
-  }, [isAuthenticated, user]);
 
-  const loadUserQuizResults = async () => {
-    try {
-      const response = await quizApi.getUserQuizResults();
-      const results = response.data.quizResults.map(result => ({
-        quizId: result.quizId,
-        score: result.score,
-        date: new Date(result.completedAt).toISOString().split('T')[0]
-      }));
-      setPreviousResults(results);
-    } catch (error) {
-      console.error('Failed to load quiz results:', error);
-    }
-  };
+  // Load previous result for this quiz on mount or when id changes
+  useEffect(() => {
+    const fetchQuizResult = async () => {
+      if (isAuthenticated && user && id) {
+        try {
+          const response = await quizApi.getQuizResult(id);
+          if (response.data && response.data.quizResult) {
+            setCurrentQuizResult({
+              score: response.data.quizResult.score,
+              date: new Date(response.data.quizResult.completedAt).toISOString().split('T')[0]
+            });
+          } else {
+            setCurrentQuizResult(null);
+          }
+        } catch (error) {
+          setCurrentQuizResult(null);
+        }
+      } else {
+        setCurrentQuizResult(null);
+      }
+    };
+    fetchQuizResult();
+  }, [isAuthenticated, user, id]);
 
   if (loadingQuiz) {
     return (
@@ -147,8 +152,8 @@ const QuizDetail = () => {
 
   const currentQ = quiz.questions[currentQuestion];
   
-  // Get previous result for this quiz
-  const previousResult = previousResults.find(result => result.quizId === quiz.id);
+  // Use currentQuizResult for previous result display
+  const previousResult = currentQuizResult;
 
   return (
     <div className="quiz-detail-page">

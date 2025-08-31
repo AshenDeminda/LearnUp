@@ -8,8 +8,9 @@ const updateProfile = async (req, res) => {
     const { name, age, email, profileImage } = req.body;
     const userId = req.user._id;
     
-    console.log('Profile update request for user:', userId);
-    console.log('Update data:', { name, age, email, profileImageLength: profileImage ? profileImage.length : 0 });
+  // [DEBUG/LOGGING]
+  // console.log('Profile update request for user:', userId);
+  // console.log('Update data:', { name, age, email, profileImageLength: profileImage ? profileImage.length : 0 });
 
     // Check if email is being changed and if it's already taken
     if (email && email !== req.user.email) {
@@ -35,8 +36,9 @@ const updateProfile = async (req, res) => {
       { new: true, runValidators: true }
     );
     
-    console.log('User updated successfully:', updatedUser._id);
-    console.log('Updated fields:', updateFields);
+  // [DEBUG/LOGGING]
+  // console.log('User updated successfully:', updatedUser._id);
+  // console.log('Updated fields:', updateFields);
 
     res.json({
       success: true,
